@@ -62,24 +62,30 @@ public class MainActivity extends AppCompatActivity {
                     //mhsList.add(new MahasiswaModel(-1, isian_nama, isian_nim, isian_noHp));
                     boolean stts;
 
-                    if (!isEdit){
-                        mm = new MahasiswaModel(-1, isian_nama, isian_nim, isian_noHp);
-                        stts = db.simpan(mm);
+                    // untuk limit record
+                    mhsList = db.list();
+                    if  (mhsList.size() >= 5) {
+                        Toast.makeText(getApplicationContext(), "Minimal Record 5!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!isEdit) {
+                            mm = new MahasiswaModel(-1, isian_nama, isian_nim, isian_noHp);
+                            stts = db.simpan(mm);
 
-                        edNama.setText("");
-                        edNim.setText("");
-                        edNomorHp.setText("");
+                            edNama.setText("");
+                            edNim.setText("");
+                            edNomorHp.setText("");
 
-                    }else{
-                        mm = new MahasiswaModel(mm.getId(), isian_nama, isian_nim, isian_noHp);
-                        stts = db.ubah(mm);
-                    }
+                        } else {
+                            mm = new MahasiswaModel(mm.getId(), isian_nama, isian_nim, isian_noHp);
+                            stts = db.ubah(mm);
+                        }
 
-                    if (stts){
+                        if (stts) {
 
-                        Toast.makeText(getApplicationContext(),"Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),"Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
 
